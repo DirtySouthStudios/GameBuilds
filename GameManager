@@ -1,0 +1,42 @@
+using UnityEngine;
+using System.Collections;
+
+public class GameManager : MonoBehaviour {
+
+	public static int currentScorer;
+	public static int highScorer;
+
+	public static int currentLevel = 0;
+	public static int unlockedLevel;
+
+	public Rect timerRect;
+
+	public GUISkin skin;
+
+	public float startTime;
+	private string currentTime;
+
+	void Update (){
+		startTime -= Time.deltaTime;
+		currentTime = string.Format("{0:0.00}", startTime) ;
+	}
+
+	void Start(){
+		DontDestroyOnLoad (gameObject);
+		Debug.Log ("I'm Here");
+	}
+
+	public static void CompleteLevel() {
+
+		if (currentLevel < 2) {
+			currentLevel += 1;
+			Application.LoadLevel (currentLevel);
+		}else{
+			print ("You Win!");
+		}
+	}
+
+	void OnGUI(){
+		GUI.Label (timerRect, currentTime);
+	}
+}

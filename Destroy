@@ -2,7 +2,7 @@
 // 6/19/2014
 // 6/24/2014
 // Prototype2\Assets\Scripts
-// Player Prefab object
+// Any object that needs to be destroyed should call this script, not place it as a component
 
 using UnityEngine;
 using System.Collections;

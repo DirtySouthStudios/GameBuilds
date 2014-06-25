@@ -1,0 +1,30 @@
+private Transform _player, _transform;
+        public float overshoot, waitingTime;
+        private Vector3 _lastPlayerPosition;
+        private bool _isWaiting;
+ 
+        private void Awake() {
+            _player = GameObject.FindGameObjectWithTag( "Player" ).transform;
+            _transform = transform;
+ 
+            _lastPlayerPosition = _player.position;
+        }
+ 
+        private void Update() {
+            //Either the players position hasnt changed or we are currently waiting
+            if( _lastPlayerPosition == _player.position || _isWaiting ) return;
+ 
+            _lastPlayerPosition = _player.position;
+ 
+            _transform.LookAt( _player );
+            _transform.position +=  ( _player.position - _transform.position ) + _transform.forward*overshoot;
+            _transform.LookAt( _player );
+ 
+            StartCoroutine( Wait());
+        }
+ 
+        private IEnumerator Wait() {
+            _isWaiting = true;
+            yield return new WaitForSeconds( waitingTime );
+            _isWaiting = false;
+        }

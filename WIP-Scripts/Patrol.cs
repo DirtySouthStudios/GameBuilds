@@ -33,7 +33,7 @@ public class Patrol : GameManager {
 			_playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 			_transform = transform;
 
-			UpdateMovement ();
+			UpdateMovement();
 		}
 
 		if (currentLevel == 1) {

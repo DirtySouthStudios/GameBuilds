@@ -27,4 +27,4 @@ public class MainMenu : MonoBehaviour {
 }
 
 
-// Would like to make this more advanced however for now this will do.
+// Would like to make this more advanced, if you can please create a "Continue" button, that continues from the last known level completed

@@ -109,4 +109,6 @@ public class Patrol : GameManager {
 	aka "acceleration", making it harder to dodge the AI.*/
 	
 	// Would also like an AI method that allows the AI to shoot bullets if on a certain level
+	
+	// Lastly, need a method that allows the AI to detect edges and stop before falling off, or stop on wall hits
 }

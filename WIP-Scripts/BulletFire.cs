@@ -13,17 +13,18 @@ public class BulletFire : MonoBehaviour {
 	public float fireTime = .05f;
 
 	void Start () {
-		//InvokeRepeating ("Fire", fireTime, fireTime);
 	}
 	
 	void Fire () {
-		if(Input.GetMouseButtonDown(1)){
-			GameObject obj = ObjectPooler.current.GetPooledObject();
-
+		if(Input.GetMouseButtonDown(1)){ 
+			GameObject obj = ObjectPooler.current.GetPooledObject(); 
+				
 			if (obj == null)return;
-			obj.transform.position = transform.position;
-			obj.transform.rotation = transform.rotation;
-			obj.SetActive (true);
+			obj.transform.position = transform.position; // spawns from player pos
+			obj.transform.rotation = transform.rotation; // spawns using player rot
+			obj.SetActive (true); // Makes object active so it can interact and create trigger/collision events
+			
+			// Need something here that sends the bullet forward from the player position
 		}
 	}
 }

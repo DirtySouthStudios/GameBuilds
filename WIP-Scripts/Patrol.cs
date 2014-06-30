@@ -104,4 +104,9 @@ public class Patrol : GameManager {
 		UpdateMovement();
 		_isWaiting = false;
 	}
+	
+	/* Need yet another method that makes an AI capable of going torwards the player but with increasing speed
+	aka "acceleration", making it harder to dodge the AI.*/
+	
+	// Would also like an AI method that allows the AI to shoot bullets if on a certain level
 }

@@ -2,7 +2,7 @@
 // 6/30/2014
 // 6/30/2014
 // Assets/Scripts
-// Bullet Prefab
+// Bullet Prefab (Create your own)
 
 
 using UnityEngine;

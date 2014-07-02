@@ -1,30 +1,48 @@
 // Francesco Maoli & Elmer Guerrero
 // 6/30/2014
-// 6/30/2014
+// 7/2/2014
 // Assets/Scripts
 // Attach to Player Prefab
 
-// ----!!!! Still needs work, currently bullets do not move and player Fire button is not functioning !!!!!-----
+// ----!!!! Currently bullets fly foward but Player is knocked backwards as well !!!!!-----
 using UnityEngine;
 using System.Collections;
 
 public class BulletFire : MonoBehaviour {
 
-	public float fireTime = .05f;
+	public float bulletSpeed = 8;
+	
+	public Transform bullet;
 
 	void Start () {
 	}
-	
-	void Fire () {
-		if(Input.GetMouseButtonDown(1)){ 
-			GameObject obj = ObjectPooler.current.GetPooledObject(); 
-				
-			if (obj == null)return;
-			obj.transform.position = transform.position; // spawns from player pos
-			obj.transform.rotation = transform.rotation; // spawns using player rot
-			obj.SetActive (true); // Makes object active so it can interact and create trigger/collision events
-			
-			// Need something here that sends the bullet forward from the player position
+
+	void FixedUpdate () {
+		// Points ray to mouse position, claims needed raycasting variables for later use
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit = new RaycastHit();
+
+		// For debugging purposes
+		if (Physics.Raycast (ray, out hit, 100)) {
 		}
+		
+		//Calls Object Pooling method when left click occurs
+		if (Input.GetMouseButtonDown (0)) {
+			Debug.Log("Left Button Clicked");
+			Fire ();
+		}
+	}
+
+	void Fire () {
+		GameObject obj = ObjectPooler.current.GetPooledObject();
+
+		if (obj == null)return;
+		obj.transform.position = transform.position;
+		obj.transform.rotation = transform.rotation;
+		obj.SetActive (true);
+		
+		
+		// Should only add foward velocity to the bullet but currently sends player backwards as well
+		rigidbody.velocity = bullet.transform.forward * bulletSpeed;
 	}
 }

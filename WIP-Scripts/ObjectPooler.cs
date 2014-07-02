@@ -4,6 +4,7 @@
 // Assets/Scripts
 // Empty Game Object (Rename to Object Pooler and attach bullet prefab in inspector component)
 
+using UnityEngine;
 using System.Collections.Generic;
 
 public class ObjectPooler : MonoBehaviour {

@@ -13,20 +13,17 @@ public class BulletFire : MonoBehaviour {
 	public float bulletSpeed = 8;
 	
 	public Transform bullet;
+	public Transform mouse;
+	public Vector3 mousePosition;
 
 	void Start () {
 	}
 
 	void FixedUpdate () {
-		// Points ray to mouse position, claims needed raycasting variables for later use
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		RaycastHit hit = new RaycastHit();
 
-		// For debugging purposes
-		if (Physics.Raycast (ray, out hit, 100)) {
-		}
-		
-		//Calls Object Pooling method when left click occurs
+		Ray mousePosition = Camera.main.ScreenPointToRay (Input.mousePosition);
+
+
 		if (Input.GetMouseButtonDown (0)) {
 			Debug.Log("Left Button Clicked");
 			Fire ();
@@ -34,15 +31,15 @@ public class BulletFire : MonoBehaviour {
 	}
 
 	void Fire () {
+		// Create obj and place into object pool
 		GameObject obj = ObjectPooler.current.GetPooledObject();
 
 		if (obj == null)return;
 		obj.transform.position = transform.position;
 		obj.transform.rotation = transform.rotation;
 		obj.SetActive (true);
-		
-		
-		// Should only add foward velocity to the bullet but currently sends player backwards as well
-		rigidbody.velocity = bullet.transform.forward * bulletSpeed;
+
+		obj.transform.LookAt (mousePosition);
+		obj.rigidbody.velocity = bullet.transform.forward * bulletSpeed;
 	}
 }

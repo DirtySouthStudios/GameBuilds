@@ -1,44 +1,55 @@
- // Francesco
- // 6/19/2014
- // 6/24/2014
- // Prototype2\Assets\Scripts
- // Empty GameObject
- 
+// Francesco Maoli & Yang Song
+// Attach to empty object in scene 
+// Assets/Scripts
+// Created 6/19/2014
+// Last Updated 7/3/2014
+
 using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-	
+
 	// Score variables
 	public static int currentScorer;
 	public static int highScorer;
-	
+
 	// Level variables
 	public static int currentLevel = 0;
 	public static int unlockedLevel;
 
-	// Time variables
-	public Rect timerRect;
-	public float startTime;
+	[SerializeField]
+	private Rect timerRect;
+
+	[SerializeField]
+	private GUISkin skin;
+
+	[SerializeField]
+	private float startTime;
+
 	private string currentTime;
 
-	public GUISkin skin;
+	// Pause boolean, do not touch
+	private bool ispaused = false;
 
-
-	void Update (){
-		startTime -= Time.deltaTime; // Takes aways 1 second from each game time step from start time set in the component by user
-		currentTime = string.Format("{0:0.0}", startTime) ; //Sets format for timer
-	}
-
+	// Makes sure GameManager presists throughout levels
 	void Start(){
 		DontDestroyOnLoad (gameObject);
-		Debug.Log ("I'm Here"); 
+		Debug.Log ("I'm Here");
 	}
 
+	void Update (){
+		startTime -= Time.deltaTime;
+		currentTime = string.Format("{0:0.00}", startTime) ;
+
+		// Pause method, see below
+		Pause ();
+	}
+
+
+	// Verifies the level and moves player to next level based on level # as long as level is less than 2. Otherwise prints.
 	public static void CompleteLevel() {
 
-		// Loads next level based on current level, only 3 levels so far so stops at 2
-		if (currentLevel < 2) { 
+		if (currentLevel < 2) {
 			currentLevel += 1;
 			Application.LoadLevel (currentLevel);
 		}else{
@@ -46,8 +57,27 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	// Adds time GUI to game
+	// Pauses game on key press "space" (must setup input in inspector)
+	public void  Pause() {
+		if(Input.GetKeyDown("space") && !ispaused){
+			Debug.Log("Space key pressed");
+			Time.timeScale = 0.0000001f;
+			ispaused = true;
+			return ;
+		}
+		
+		if (Input.GetKeyDown ("space") && ispaused) {
+			Time.timeScale = 1;
+			ispaused = false;
+			return;
+		}
+		
+	}
+
+
 	void OnGUI(){
 		GUI.Label (timerRect, currentTime);
 	}
 }
+
+

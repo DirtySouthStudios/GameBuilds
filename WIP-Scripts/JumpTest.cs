@@ -20,6 +20,11 @@ public class JumpTest : MonoBehaviour {
 
 	// Boolean test
 	private boolean grounded; // NEW
+	private boolean goHigher;
+	
+	// Height variables NEW
+	private float playerHeight;
+	public float maxPlayerHeight;
 	
 	void FixedUpdate () {
 		
@@ -36,7 +41,8 @@ public class JumpTest : MonoBehaviour {
 			if (Input.GetButton ("space")) {
 				Debug.Log ("I jumped!");
 				moveDirection.y = jumpSpeed;
-				if (rigidbody.velocity.magnitude < maxJumpSpeed){
+				GoHigherTest(); // NEW
+				if (goHigher){ // NEW
 					rigidbody.AddRelativeForce (moveDirection * jumpSpeed);
 				}
 			}
@@ -51,4 +57,14 @@ public class JumpTest : MonoBehaviour {
 			}
 		}
 	}
+	
+	public GoHigherTest(){ // NEW
+		
+		playerHeight = transform.position.y;
+		
+		if(playerHeight < maxJumpHeight){
+			goHigher = true;
+		}
+	}
 }
+

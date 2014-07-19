@@ -54,6 +54,8 @@ public class JumpTest : MonoBehaviour {
 		OnCollisionEnter(Collision collision){
 			if (collision.gameObject.tag("Player")){
 				grounded = true;
+			}else{
+				grounded = false;
 			}
 		}
 	}
@@ -64,6 +66,8 @@ public class JumpTest : MonoBehaviour {
 		
 		if(playerHeight < maxJumpHeight){
 			goHigher = true;
+		}else{
+			goHigher = false;
 		}
 	}
 }
